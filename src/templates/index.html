@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A股热点题材量化交易策略监控</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .risk-indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .risk-high { background-color: #dc3545; }
+        .risk-medium { background-color: #ffc107; }
+        .risk-low { background-color: #28a745; }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">A股热点题材量化交易策略监控</h1>
+        
+        <!-- 策略控制 -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">策略控制</h5>
+            </div>
+            <div class="card-body">
+                <button id="runStrategy" class="btn btn-primary">执行策略</button>
+                <span id="strategyStatus" class="ms-3"></span>
+            </div>
+        </div>
+
+        <!-- 账户概览 -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">账户概览</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6>初始资金</h6>
+                        <p class="h3">¥1,000,000.00</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>当前资金</h6>
+                        <p class="h3">¥<span id="current-capital">{{ current_capital }}</span></p>
+                    </div>
+                    <div class="col-md-4">
+                        <h6>持仓数量</h6>
+                        <p class="h3"><span id="position-count">{{ position_count }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 持仓明细 -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">持仓明细</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>股票代码</th>
+                                <th>股票名称</th>
+                                <th>持仓数量</th>
+                                <th>成本价</th>
+                                <th>当前价</th>
+                                <th>盈亏比例</th>
+                                <th>风险等级</th>
+                            </tr>
+                        </thead>
+                        <tbody id="positions-table">
+                            {% for position in positions %}
+                            <tr>
+                                <td>{{ position.code }}</td>
+                                <td>{{ position.name }}</td>
+                                <td>{{ position.quantity }}</td>
+                                <td>¥{{ position.cost_price }}</td>
+                                <td>¥{{ position.current_price }}</td>
+                                <td class="{{ 'text-success' if position.profit_pct >= 0 else 'text-danger' }}">
+                                    {{ position.profit_pct }}%
+                                </td>
+                                <td>
+                                    <span class="risk-indicator {{ position.risk_class }}"></span>
+                                    {{ position.risk_score }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('runStrategy').addEventListener('click', function() {
+            const statusElement = document.getElementById('strategyStatus');
+            statusElement.textContent = '正在执行策略...';
+            
+            fetch('/api/run_strategy')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        statusElement.textContent = data.message;
+                        document.getElementById('current-capital').textContent = data.current_capital;
+                        document.getElementById('position-count').textContent = data.position_count;
+                        // 刷新页面以更新持仓信息
+                        setTimeout(() => location.reload(), 1000);
+                    } else {
+                        statusElement.textContent = data.message;
+                    }
+                })
+                .catch(error => {
+                    statusElement.textContent = '策略执行出错: ' + error;
+                });
+        });
+
+        // 自动刷新数据
+        setInterval(() => {
+            fetch('/api/update')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('current-capital').textContent = data.current_capital;
+                    document.getElementById('position-count').textContent = data.position_count;
+                });
+        }, 60000); // 每分钟更新一次
+    </script>
+</body>
+</html> 

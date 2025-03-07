@@ -1,0 +1,33 @@
+2025-03-07 17:54:58,653 - __main__ - INFO - 启动Web应用...
+2025-03-07 17:54:58,704 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.1.143.62:5001
+2025-03-07 17:54:58,704 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-07 17:54:58,705 - werkzeug - INFO -  * Restarting with stat
+2025-03-07 17:54:58,828 - __main__ - INFO - 启动Web应用...
+2025-03-07 17:54:58,842 - werkzeug - WARNING -  * Debugger is active!
+2025-03-07 17:54:58,850 - werkzeug - INFO -  * Debugger PIN: 140-223-415
+2025-03-07 18:05:49,773 - __main__ - INFO - 启动Web应用...
+2025-03-07 18:05:49,815 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.1.143.62:5001
+2025-03-07 18:05:49,815 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-07 18:05:49,816 - werkzeug - INFO -  * Restarting with stat
+2025-03-07 18:05:49,949 - __main__ - INFO - 启动Web应用...
+2025-03-07 18:05:49,965 - werkzeug - WARNING -  * Debugger is active!
+2025-03-07 18:05:49,973 - werkzeug - INFO -  * Debugger PIN: 140-223-415
+2025-03-07 18:06:02,172 - werkzeug - INFO - 127.0.0.1 - - [07/Mar/2025 18:06:02] "GET / HTTP/1.1" 200 -
+2025-03-07 18:06:12,243 - werkzeug - INFO - 127.0.0.1 - - [07/Mar/2025 18:06:12] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-03-07 18:08:22,673 - __main__ - INFO - 启动Web应用...
+2025-03-07 18:08:22,709 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.1.143.62:5001
+2025-03-07 18:08:22,709 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-03-07 18:08:22,709 - werkzeug - INFO -  * Restarting with stat
+2025-03-07 18:08:23,709 - __main__ - INFO - 启动Web应用...
+2025-03-07 18:08:23,724 - werkzeug - WARNING -  * Debugger is active!
+2025-03-07 18:08:23,736 - werkzeug - INFO -  * Debugger PIN: 140-223-415
+2025-03-07 18:08:36,046 - werkzeug - INFO - 127.0.0.1 - - [07/Mar/2025 18:08:36] "GET / HTTP/1.1" 200 -
